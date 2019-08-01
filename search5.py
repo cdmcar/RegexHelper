@@ -299,6 +299,7 @@ class TextFinder(QWidget):
 			r'\\s', r'\s').replace(
 			r'\\S', r'\S')
 		
+		# Avoid errors when pattern is blank or unfinished
 		pat = re.compile('', flags=self.SEARCH_FLAGS)
 		try:
 			pat = re.compile(self.inputData, flags=self.SEARCH_FLAGS)
@@ -332,33 +333,40 @@ class TextFinder(QWidget):
 				hlCursor.setPosition(i.end(1), QTextCursor.KeepAnchor)
 				extra = QTextEdit.ExtraSelection()
 				extra.format.setBackground(QColor(0, 0, 255, 127))
+				extra.cursor = hlCursor
+				extraSelections.append(extra)
 			except IndexError:
 				pass
 
-			else:
-				try:
-					hlCursor.setPosition(i.start(2), QTextCursor.MoveAnchor)
-					hlCursor.setPosition(i.end(2), QTextCursor.KeepAnchor)
-					extra = QTextEdit.ExtraSelection()
-					extra.format.setBackground(QColor(148, 0, 211, 127))
-				except IndexError:
-					pass
+			try:
+				hlCursor.setPosition(i.start(2), QTextCursor.MoveAnchor)
+				hlCursor.setPosition(i.end(2), QTextCursor.KeepAnchor)
+				extra = QTextEdit.ExtraSelection()
+				extra.format.setBackground(QColor(148, 0, 211, 127))
+				extra.cursor = hlCursor
+				extraSelections.append(extra)
+			except IndexError:
+				pass
 
-				try:
-					hlCursor.setPosition(i.start(3), QTextCursor.MoveAnchor)
-					hlCursor.setPosition(i.end(3), QTextCursor.KeepAnchor)
-					extra = QTextEdit.ExtraSelection()
-					extra.format.setBackground(QColor(255, 127, 0, 127))
-				except IndexError:
-					pass
+			try:
+				hlCursor.setPosition(i.start(3), QTextCursor.MoveAnchor)
+				hlCursor.setPosition(i.end(3), QTextCursor.KeepAnchor)
+				extra = QTextEdit.ExtraSelection()
+				extra.format.setBackground(QColor(255, 127, 0, 127))
+				extra.cursor = hlCursor
+				extraSelections.append(extra)
+			except IndexError:
+				pass
 
-				try:
-					hlCursor.setPosition(i.start(4), QTextCursor.MoveAnchor)
-					hlCursor.setPosition(i.end(4), QTextCursor.KeepAnchor)
-					extra = QTextEdit.ExtraSelection()
-					extra.format.setBackground(QColor(0, 0, 255, 127))
-				except IndexError:
-					pass
+			try:
+				hlCursor.setPosition(i.start(4), QTextCursor.MoveAnchor)
+				hlCursor.setPosition(i.end(4), QTextCursor.KeepAnchor)
+				extra = QTextEdit.ExtraSelection()
+				extra.format.setBackground(QColor(0, 0, 255, 127))
+				extra.cursor = hlCursor
+				extraSelections.append(extra)
+			except IndexError:
+				pass
 
 		hlCursor.setPosition(QTextCursor.Start)
 		self.textEdit.setExtraSelections(extraSelections)
