@@ -1,8 +1,13 @@
 import sys, os
 from collections import deque, Counter
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-from PySide2.QtCore import *
+try:
+	from PySide2.QtGui import *
+	from PySide2.QtWidgets import *
+	from PySide2.QtCore import *
+except Exception:
+	from PyQt5.QtGui import *
+	from PyQt5.QtWidgets import *
+	from PyQt5.QtCore import *
 import re
 import time
 import numpy as np
@@ -327,40 +332,33 @@ class TextFinder(QWidget):
 				hlCursor.setPosition(i.end(1), QTextCursor.KeepAnchor)
 				extra = QTextEdit.ExtraSelection()
 				extra.format.setBackground(QColor(0, 0, 255, 127))
-				extra.cursor = hlCursor
-				extraSelections.append(extra)
 			except IndexError:
 				pass
 
-			try:
-				hlCursor.setPosition(i.start(2), QTextCursor.MoveAnchor)
-				hlCursor.setPosition(i.end(2), QTextCursor.KeepAnchor)
-				extra = QTextEdit.ExtraSelection()
-				extra.format.setBackground(QColor(148, 0, 211, 127))
-				extra.cursor = hlCursor
-				extraSelections.append(extra)
-			except IndexError:
-				pass
+			else:
+				try:
+					hlCursor.setPosition(i.start(2), QTextCursor.MoveAnchor)
+					hlCursor.setPosition(i.end(2), QTextCursor.KeepAnchor)
+					extra = QTextEdit.ExtraSelection()
+					extra.format.setBackground(QColor(148, 0, 211, 127))
+				except IndexError:
+					pass
 
-			try:
-				hlCursor.setPosition(i.start(3), QTextCursor.MoveAnchor)
-				hlCursor.setPosition(i.end(3), QTextCursor.KeepAnchor)
-				extra = QTextEdit.ExtraSelection()
-				extra.format.setBackground(QColor(255, 127, 0, 127))
-				extra.cursor = hlCursor
-				extraSelections.append(extra)
-			except IndexError:
-				pass
+				try:
+					hlCursor.setPosition(i.start(3), QTextCursor.MoveAnchor)
+					hlCursor.setPosition(i.end(3), QTextCursor.KeepAnchor)
+					extra = QTextEdit.ExtraSelection()
+					extra.format.setBackground(QColor(255, 127, 0, 127))
+				except IndexError:
+					pass
 
-			try:
-				hlCursor.setPosition(i.start(4), QTextCursor.MoveAnchor)
-				hlCursor.setPosition(i.end(4), QTextCursor.KeepAnchor)
-				extra = QTextEdit.ExtraSelection()
-				extra.format.setBackground(QColor(0, 0, 255, 127))
-				extra.cursor = hlCursor
-				extraSelections.append(extra)
-			except IndexError:
-				pass
+				try:
+					hlCursor.setPosition(i.start(4), QTextCursor.MoveAnchor)
+					hlCursor.setPosition(i.end(4), QTextCursor.KeepAnchor)
+					extra = QTextEdit.ExtraSelection()
+					extra.format.setBackground(QColor(0, 0, 255, 127))
+				except IndexError:
+					pass
 
 		hlCursor.setPosition(QTextCursor.Start)
 		self.textEdit.setExtraSelections(extraSelections)
